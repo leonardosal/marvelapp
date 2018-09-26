@@ -7,9 +7,9 @@ export const TitleContainer = styled.View`
   padding-bottom: 10px;
 `;
 
-export const ItemRow = styled.View`
-  borderBottomWidth: 1px;
-  borderColor: #ccc;
+export const ItemRow = styled.TouchableOpacity`
+  border-bottom-width: 1px;
+  border-color: #ccc;
   flex-direction: row;
   align-items: flex-start;
 `;
@@ -27,12 +27,22 @@ export const Avatar = styled.Image`
 
 export const TitleRow = styled.Text`
   margin-top: 5px;
-  fontSize: 18px;
-  fontWeight: bold;
+  font-size: 18px;
+  font-weight: bold;
   color: #000;
 `;
 
 export const Description = styled.Text`
-  fontSize: 12px;
-  textAlign: left
+  font-size: 12px;
+  text-align: left
 `;
+
+export const List = styled.FlatList``
+
+export const LoadingContainer = styled.View``
+
+export const Loading= styled.ActivityIndicator`
+  align-self: center;
+  margin-vertical: 20;
+
+`

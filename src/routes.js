@@ -1,9 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
 
 import CharactersList from './pages/CharactersList';
+import CharacterDetails from './pages/CharacterDetails';
 
 const Routes = createStackNavigator({
-  CharactersList
+  CharactersList,
+  CharacterDetails
 });
 
 export default Routes;
