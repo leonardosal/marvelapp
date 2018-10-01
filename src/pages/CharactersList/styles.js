@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
 `;
 
 export const TitleContainer = styled.View`
@@ -37,12 +37,14 @@ export const Description = styled.Text`
   text-align: left
 `;
 
-export const List = styled.FlatList``
+export const List = styled.FlatList`
+  margin-bottom: 58;
+`
 
-export const LoadingContainer = styled.View``
+export const LoadingContainer = styled.View`
+  margin-vertical: 20;
+`
 
 export const Loading= styled.ActivityIndicator`
   align-self: center;
-  margin-vertical: 20;
-
 `
