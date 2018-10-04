@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
@@ -12,7 +14,10 @@
     "lodash": "^4.17.11",
     "react": "16.5.0",
     "react-native": "0.57.1",
-    "react-native-elements": "^0.19.1",
+    "react-native-elements": "^1.0.0-beta5",
+    "react-native-fast-image": "^5.0.10",
+    "react-native-linear-gradient": "^2.4.2",
+    "react-native-shimmer-placeholder": "^1.0.29",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.17.0",
     "styled-components": "^3.4.9"

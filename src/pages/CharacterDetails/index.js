@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Container, Avatar, Description, DescriptionContainer } from './styles'
 
 class CharacterDetails extends Component {
@@ -26,3 +25,5 @@ class CharacterDetails extends Component {
 }
 
 export default CharacterDetails;
+
+// 

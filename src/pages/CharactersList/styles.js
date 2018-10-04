@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 
 export const Container = styled.View`
 `;
@@ -47,4 +48,14 @@ export const LoadingContainer = styled.View`
 
 export const Loading= styled.ActivityIndicator`
   align-self: center;
+`
+
+export const ShimmerAvatar = styled(ShimmerPlaceHolder)`
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+`
+
+export const Shimmer= styled(ShimmerPlaceHolder)`
+  margin-top: 10px;
 `

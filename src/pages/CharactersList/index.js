@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native'
+import { StatusBar, Platform } from 'react-native'
 import { truncate, debounce } from 'lodash'
 import { SearchBar } from 'react-native-elements'
 
-import {Container, ItemRow, Avatar, Content, TitleRow, TitleContainer, Description, List, LoadingContainer, Loading } from './styles'
+import { Container, ItemRow, Avatar, Content, TitleRow, TitleContainer, Description, List, LoadingContainer, Loading, ShimmerAvatar, Shimmer } from './styles'
 
 const baseURL = 'http://gateway.marvel.com/v1/public';
 const params = '?ts=1&apikey=e0f8c5b17505a28de4d5ed47a5f14e92&hash=25e41ba5d1f65f86070f4a3f9d4fa6ed'
 
 export default class CharactersList extends Component {
+
+  static searchBar
   static navigationOptions = {
     title: 'Characters',
     headerStyle: {
@@ -26,32 +28,42 @@ export default class CharactersList extends Component {
     offset: 0,
     loading: false,
     refreshing: false,
-    textSearch: ''
+    textSearch: '',
+    isVisible: false,
   };
 
   componentDidMount() {
     this.loadCharacters();
   }
 
+  delay () {
+    setTimeout(() => this.setState({ isVisible: !this.state.isVisible }), 2500);
+  }
+
   sendRequest = async () => {
     const { offset } = this.state;
     const response = await fetch(`${baseURL}/characters${params}&offset=${offset}`);
     const { data } = await response.json();
+    const listData = this.state.data
     this.setState({
-      data: [ ...this.state.data, ...data.results ],
+      data: [ ...listData, ...data.results ],
       offset: offset + 20,
       loading: false,
       refreshing: false
+    },() => {
+      if(!listData.length) this.delay()
     });
+   
   }
 
   search = async (text) => {
     if (this.state.loading) return;
-    
     if(!text){
       this.reload()
       return
     }
+
+    this.searchBar.blur()
 
     this.setState({ 
       loading: true,
@@ -73,16 +85,18 @@ export default class CharactersList extends Component {
       refreshing: true,
       offset: 0,
       data: [],
-      textSearch: ''
+      textSearch: '',
+      isVisible: false
     }, async () => await this.sendRequest());
   }
 
-  loadCharacters = async () => {
+  loadCharacters = () => {
     if (this.state.loading) return;
 
-    this.setState({ loading: true });
+    const isDirty = !!this.state.data.length
 
-    await this.sendRequest()
+    this.setState({ loading: true, isVisible: isDirty }, 
+      async () => await this.sendRequest());
   }
 
   renderFooter = () => {
@@ -110,17 +124,25 @@ export default class CharactersList extends Component {
       const character = {
         name: item.name,
         description: item.description ? item.description : 'No description',
+        thumbnailPath: `${item.thumbnail.path}/standard_small.${item.thumbnail.extension}`,
         imagePath: `${item.thumbnail.path}.${item.thumbnail.extension}`
       }
 
       return (
         <ItemRow onPress={() => navigate('CharacterDetails', character)}>
-          <Avatar source={{uri: `${item.thumbnail.path}/standard_large.${item.thumbnail.extension}`}} />
+          <ShimmerAvatar autoRun={true} visible={this.state.isVisible}>
+              <Avatar 
+              source={{uri: `${item.thumbnail.path}/standard_large.${item.thumbnail.extension}`}} />
+          </ShimmerAvatar>
           <Content>
             <TitleContainer>
-              <TitleRow>{item.name}</TitleRow>
+                <Shimmer autoRun={true} visible={this.state.isVisible}>
+                  <TitleRow>{item.name}</TitleRow>
+                </Shimmer>
             </TitleContainer>
-            <Description>{truncate(textDescription, {'length': 90})}</Description>
+            <Shimmer autoRun={true} visible={this.state.isVisible}>
+              <Description>{truncate(textDescription, {'length': 90})}</Description>
+            </Shimmer>
           </Content>
         </ItemRow>
       )
@@ -135,11 +157,12 @@ export default class CharactersList extends Component {
         />
 
         <SearchBar
+          ref={searchBar =>  this.searchBar = searchBar}
           lightTheme
+          platform={Platform.OS}
           onChangeText={debounce(this.search, 1000)}
-          onClearText={this.reload}
           icon={{ type: 'font-awesome', name: 'search' }}
-          placeholder='Search character by name' />
+         />
         
         <List
           data={this.state.data}
