@@ -11,11 +11,11 @@ class CharacterDetails extends Component {
   });
 
   render () {
-    const { description, imagePath} = this.props.navigation.state.params
+    const { description, imagePath, thumbnailPath} = this.props.navigation.state.params
 
     return (
       <Container>
-        <Avatar resizeMode="stretch" source={{uri: imagePath}}></Avatar>
+        <Avatar thumbnail={thumbnailPath} resizeMode="stretch" source={{uri: imagePath}}></Avatar>
         <DescriptionContainer>
           <Description>{description}</Description>
         </DescriptionContainer>
@@ -25,5 +25,3 @@ class CharacterDetails extends Component {
 }
 
 export default CharacterDetails;
-
-// 
