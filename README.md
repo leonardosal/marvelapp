@@ -7,10 +7,12 @@
 * Node 8+
 * React Native CLI
 * ANDROID SDK
+* Yarn
 
 ## Como rodar a aplicação
 
 ```
-npm run ios (on mac)
-npm run android
+yarn install
+yarn ios (on mac)
+yarn android
 ```
