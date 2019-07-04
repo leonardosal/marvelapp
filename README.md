@@ -4,9 +4,9 @@
 
 ## Requisitos
 
-Node 8+
-React Native CLI
-ANDROID SDK
+* Node 8+
+* React Native CLI
+* ANDROID SDK
 
 ## Como rodar a aplicação
 
