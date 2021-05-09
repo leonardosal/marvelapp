@@ -11,7 +11,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.56",
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react": "16.5.0",
     "react-native": "0.57.1",
     "react-native-elements": "^1.0.0-beta5",
